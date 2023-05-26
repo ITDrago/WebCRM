@@ -14,11 +14,20 @@ namespace WebCRM.Controllers
         {
             _context = context;
         }
+        [HttpGet]
         public IActionResult Index()
         {
             List<Customer> customers = _context.Customers.ToList();
             return View(customers);
-
         }
+        [HttpPost]
+        public IActionResult Index(Customer model)
+        {
+            _context.Customers.Add(model);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+            
+        }
+
     }
 }
