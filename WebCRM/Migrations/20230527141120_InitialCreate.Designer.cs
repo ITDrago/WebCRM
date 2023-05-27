@@ -12,7 +12,7 @@ using WebCRM.Data;
 namespace WebCRM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230526154654_InitialCreate")]
+    [Migration("20230527141120_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

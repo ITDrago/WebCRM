@@ -21,13 +21,27 @@ namespace WebCRM.Controllers
             return View(customers);
         }
         [HttpPost]
-        public IActionResult Index(Customer model)
+        public IActionResult CustomerAdd(Customer model)
         {
             _context.Customers.Add(model);
             _context.SaveChanges();
             return RedirectToAction("Index");
             
         }
-
+        [HttpPost] 
+        public IActionResult CustomerDelete(int id)
+        {
+            _context.Customers.Remove(_context.Customers.Single(x => x.Id == id));
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public IActionResult CustomerEdit(int id, Customer model)
+        {
+            var customer = _context.Customers.Single(x => x.Id == id);
+            customer.Name = model.Name;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
