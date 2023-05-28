@@ -1,5 +1,4 @@
-﻿@using WebCRM.Models;
-@model IEnumerable<Customer>
+﻿@model IEnumerable<Seller>
 @{
 }
 <!DOCTYPE html>
@@ -33,40 +32,43 @@
 
             table, table table td {
                 border: 0px solid #ccc;
-
             }
 
-            .formdiv0
-            {
-            margin-top:30px;
-            }
+        .formdiv0 {
+            margin-top: 30px;
+        }
 
-            .formdiv1 {
-                margin-bottom: 20px;
-            }
-            .formdiv2{
-                margin-bottom:20px
-            }
-            .formdiv3{
-                margin-bottom: 20px
-            }
-            .b1{
-                background: #B8DBFD ;
-                margin: 5px
-            }
-            .b2{
-                background: #B8DBFD;
-                margin: 5px
-            }
-            .b3{
-                background: #B8DBFD;
-                margin: 5px;
-            }
-            .body{
-                background: #dae3e3;
-                margin: 5px;
-            }
-    
+        .formdiv1 {
+            margin-bottom: 20px;
+        }
+
+        .formdiv2 {
+            margin-bottom: 20px
+        }
+
+        .formdiv3 {
+            margin-bottom: 20px
+        }
+
+        .b1 {
+            background: #B8DBFD;
+            margin: 5px
+        }
+
+        .b2 {
+            background: #B8DBFD;
+            margin: 5px
+        }
+
+        .b3 {
+            background: #B8DBFD;
+            margin: 5px;
+        }
+
+        .body {
+            background: #dae3e3;
+            margin: 5px;
+        }
     </style>
 </head>
 <body class="body">
@@ -77,30 +79,30 @@
             <th>CustomerID</th>
             <th>CustomerName</th>
         </tr>
-        @foreach (Customer customer in Model)
+        @foreach (Seller seller in Model)
         {
             <tr>
-                <td>@customer.Id</td>
-                <td>@customer.Name</td>
+                <td>@seller.Id</td>
+                <td>@seller.Name</td>
             </tr>
         }
     </table>
     <div class="formdiv0">
-        <form asp-controller="Customer" asp-action="CustomerAdd" method="post">
+        <form asp-controller="Seller" asp-action="SellerAdd" method="post">
             <div class="formdiv1">
                 <label>Name:</label><br />
                 <input name='name' /><br />
                 <input type='submit' class="b1" value='Add' />
             </div>
-         </form>
-        <form asp-controller="Customer" asp-action="CustomerDelete" method="post">
+        </form>
+        <form asp-controller="Seller" asp-action="SellerDelete" method="post">
             <div class="formdiv2">
                 <label>Id:</label><br />
                 <input name='id' /><br />
                 <input type="submit" class="b2" value='Delete' />
             </div>
         </form>
-        <form asp-controller="Customer" asp-action="CustomerEdit" method="post">
+        <form asp-controller="Seller" asp-action="SellerEdit" method="post">
             <div class="formdiv3">
                 <label>Id:</label><br />
                 <input name='id' /><br />
