@@ -46,12 +46,12 @@ namespace WebCRM.Controllers
         [HttpPost]
         public IActionResult SellerEdit(int id, Seller model)
         {
-            if (model.Name != null)
+            var tmpSeller = _context.Sellers.Find(id);
+            if (tmpSeller != null && tmpSeller.Name != null)
             {
-                var tmpSeller = _context.Sellers.Find(id);
-                if (tmpSeller != null)
+                var seller = _context.Sellers.Single(x => x.Id == id);
+                if (model.Name != null)
                 {
-                    var seller = _context.Sellers.Single(x => x.Id == id);
                     seller.Name = model.Name;
                     _context.SaveChanges();
                     return RedirectToAction("Index");
@@ -59,5 +59,6 @@ namespace WebCRM.Controllers
             }
             return RedirectToAction("Index");
         }
+        
     }
 }

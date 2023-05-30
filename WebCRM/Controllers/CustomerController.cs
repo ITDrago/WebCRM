@@ -35,7 +35,7 @@ namespace WebCRM.Controllers
         [HttpPost] 
         public IActionResult CustomerDelete(int id)
         {
-            var customer = _context.Sellers.Find(id);
+            var customer = _context.Customers.Find(id);
             if (customer != null)
             {
                 _context.Customers.Remove(_context.Customers.Single(x => x.Id == id));
@@ -48,13 +48,16 @@ namespace WebCRM.Controllers
         [HttpPost]
         public IActionResult CustomerEdit(int id, Customer model)
         {
-            var tmpCustomer = _context.Sellers.Find(id);
-            if (tmpCustomer != null)
+            var tmpCustomer = _context.Customers.Find(id);
+            if (tmpCustomer != null && tmpCustomer.Name != null)
             {
                 var customer = _context.Customers.Single(x => x.Id == id);
+                if(model.Name != null)
+                {
                 customer.Name = model.Name;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
+                }
             }
             return RedirectToAction("Index");
         }
