@@ -2,22 +2,23 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using WebCRM.Data;
+using WebCRM.Interfaces;
 using WebCRM.Models;
 
 namespace WebCRM.Controllers
 {
     public class CustomerController:Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ICustomerRepository _customerRepository;
 
-        public CustomerController(ApplicationDbContext context)
+        public CustomerController(ICustomerRepository customerRepository)
         {
-            _context = context;
+            _customerRepository = customerRepository;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Customer> customers = _context.Customers.ToList();
+            IEnumerable<Customer> customers = await  _customerRepository.GetAll();
             return View(customers);
         }
         [HttpPost]
@@ -25,8 +26,7 @@ namespace WebCRM.Controllers
         {
             if (model.Name != null)
             {
-                _context.Customers.Add(model);
-                _context.SaveChanges();
+                _customerRepository.Add(model);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -35,11 +35,10 @@ namespace WebCRM.Controllers
         [HttpPost] 
         public IActionResult CustomerDelete(int id)
         {
-            var customer = _context.Customers.Find(id);
+            var customer = _customerRepository.GetById(id);
             if (customer != null)
             {
-                _context.Customers.Remove(_context.Customers.Single(x => x.Id == id));
-                _context.SaveChanges();
+                _customerRepository.Remove(customer);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -48,17 +47,9 @@ namespace WebCRM.Controllers
         [HttpPost]
         public IActionResult CustomerEdit(int id, Customer model)
         {
-            var tmpCustomer = _context.Customers.Find(id);
-            if (tmpCustomer != null && tmpCustomer.Name != null)
-            {
-                var customer = _context.Customers.Single(x => x.Id == id);
-                if(model.Name != null)
-                {
-                customer.Name = model.Name;
-                _context.SaveChanges();
+            if (_customerRepository.Edit(model, id))
                 return RedirectToAction("Index");
-                }
-            }
+
             return RedirectToAction("Index");
         }
     }

@@ -1,31 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using WebCRM.Data;
+using WebCRM.Interfaces;
 using WebCRM.Models;
+using WebCRM.Repository;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebCRM.Controllers
 {
     public class SellerController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ISellerRepository _sellerRepository;
 
-        public SellerController(ApplicationDbContext context)
+        public SellerController(ISellerRepository sellerRepository)
         {
-            _context = context;
+            _sellerRepository = sellerRepository;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Seller> sellers = _context.Sellers.ToList();
+            IEnumerable<Seller> sellers = await _sellerRepository.GetAll();
             return View(sellers);
         }
         public IActionResult SellerAdd(Seller model)
         {
             if (model.Name != null)
-            { 
-                _context.Sellers.Add(model);
-                _context.SaveChanges();
+            {
+                _sellerRepository.Add(model);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -34,11 +35,10 @@ namespace WebCRM.Controllers
         [HttpPost]
         public IActionResult SellerDelete(int id)
         {
-            var seller = _context.Sellers.Find(id);
+            var seller = _sellerRepository.GetById(id);
             if (seller != null)
             {
-                _context.Sellers.Remove(_context.Sellers.Single(x => x.Id == id));
-                _context.SaveChanges();
+                _sellerRepository.Remove(seller);
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
@@ -46,17 +46,9 @@ namespace WebCRM.Controllers
         [HttpPost]
         public IActionResult SellerEdit(int id, Seller model)
         {
-            var tmpSeller = _context.Sellers.Find(id);
-            if (tmpSeller != null && tmpSeller.Name != null)
-            {
-                var seller = _context.Sellers.Single(x => x.Id == id);
-                if (model.Name != null)
-                {
-                    seller.Name = model.Name;
-                    _context.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-            }
+            if (_sellerRepository.Edit(model, id))
+                return RedirectToAction("Index");
+
             return RedirectToAction("Index");
         }
         

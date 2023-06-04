@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WebCRM.Data;
+using WebCRM.Interfaces;
+using WebCRM.Repository;
 
 namespace WebCRM
 {
@@ -10,6 +12,8 @@ namespace WebCRM
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped<ISellerRepository, SellerRepository>();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
