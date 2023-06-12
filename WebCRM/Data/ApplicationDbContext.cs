@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using WebCRM.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebCRM.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser>
     {
         public DbSet<Check> Checks { get; set; }
         public DbSet<Customer> Customers { get; set; }
