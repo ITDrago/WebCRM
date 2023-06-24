@@ -42,7 +42,7 @@ namespace WebCRM.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Customer");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 //Password is incorrect
@@ -81,7 +81,7 @@ namespace WebCRM.Controllers
             var newUserResponse = await _userManager.CreateAsync(newUser, registerViewModel.Password);
             if (newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
-            return RedirectToAction("Index", "Customer");
+            return RedirectToAction("Login", "Account");
         }
         [HttpPost]
         public async Task<IActionResult> Logout()

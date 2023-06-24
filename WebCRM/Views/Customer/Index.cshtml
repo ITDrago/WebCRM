@@ -85,30 +85,34 @@
             </tr>
         }
     </table>
-    <div class="formdiv0">
-        <form asp-controller="Customer" asp-action="CustomerAdd" method="post">
-            <div class="formdiv1">
-                <label>Name:</label><br />
-                <input name='name' /><br />
-                <input type='submit' class="b1" value='Add' />
-            </div>
-         </form>
-        <form asp-controller="Customer" asp-action="CustomerDelete" method="post">
-            <div class="formdiv2">
-                <label>Id:</label><br />
-                <input name='id' /><br />
-                <input type="submit" class="b2" value='Delete' />
-            </div>
-        </form>
-        <form asp-controller="Customer" asp-action="CustomerEdit" method="post">
-            <div class="formdiv3">
-                <label>Id:</label><br />
-                <input name='id' /><br />
-                <label>Name:</label><br />
-                <input name='name' /><br />
-                <input type='submit' class="b3" value='Edit' />
-            </div>
-        </form>
-    </div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+    {
+        <div class="formdiv0">
+            <form asp-controller="Customer" asp-action="CustomerAdd" method="post">
+                <div class="formdiv1">
+                    <label>Name:</label><br />
+                    <input name='name' /><br />
+                    <input type='submit' class="b1" value='Add' />
+                </div>
+            </form>
+            <form asp-controller="Customer" asp-action="CustomerDelete" method="post">
+                <div class="formdiv2">
+                    <label>Id:</label><br />
+                    <input name='id' /><br />
+                    <input type="submit" class="b2" value='Delete' />
+                </div>
+            </form>
+            <form asp-controller="Customer" asp-action="CustomerEdit" method="post">
+                <div class="formdiv3">
+                    <label>Id:</label><br />
+                    <input name='id' /><br />
+                    <label>Name:</label><br />
+                    <input name='name' /><br />
+                    <input type='submit' class="b3" value='Edit' />
+                </div>
+            </form>
+        </div>
+    }
+    
 </body>
 </html>
