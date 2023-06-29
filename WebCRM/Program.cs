@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Web.Providers.Entities;
 using WebCRM.Data;
 using WebCRM.Interfaces;
 using WebCRM.Models;
 using WebCRM.Repository;
+using WebCRM.Views.Account;
 
 namespace WebCRM
 {
@@ -18,6 +20,7 @@ namespace WebCRM
             builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
             builder.Services.AddScoped<ISellerRepository, SellerRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -51,11 +54,9 @@ namespace WebCRM
 
             app.UseAuthorization();
             app.UseAuthentication();
-
             app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Account}/{action=Login}/{id?}");
-
+            name: "default",
+            pattern: "{controller=Account}/{action=Login}/{id?}");
             app.Run();
         }
     }

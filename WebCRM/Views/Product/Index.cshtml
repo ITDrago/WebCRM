@@ -1,0 +1,136 @@
+﻿@using WebCRM.Models;
+@model IEnumerable<Product>
+@{
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        body {
+            font-family: Arial;
+            font-size: 11pt;
+        }
+
+        table {
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+            table th {
+                background-color: #B8DBFD;
+                color: #333;
+                font-weight: bold;
+            }
+
+            table th, table td {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+
+            table, table table td {
+                border: 0px solid #ccc;
+            }
+
+        .formdiv0 {
+            margin-top: 30px;
+        }
+
+        .formdiv1 {
+            margin-bottom: 20px;
+        }
+
+        .formdiv2 {
+            margin-bottom: 20px
+        }
+
+        .formdiv3 {
+            margin-bottom: 20px
+        }
+
+        .b1 {
+            background: #B8DBFD;
+            margin: 5px
+        }
+
+        .b2 {
+            background: #B8DBFD;
+            margin: 5px
+        }
+
+        .b3 {
+            background: #B8DBFD;
+            margin: 5px;
+        }
+
+        .body {
+            background: #dae3e3;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body class="body">
+    <h4>Products</h4>
+    <hr />
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+            <th>ProductID</th>
+            <th>ProductName</th>
+            <th>ProductPrice</th>
+            <th>ProductCount</th>
+
+        </tr>
+        @foreach (Product product in Model)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Price₽</td>
+                <td>@product.Count</td>
+            </tr>
+        }
+    </table>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+    {
+        <div class="formdiv0">
+            <form asp-controller="Product" asp-action="ProductAdd" method="post">
+                <div class="formdiv1">
+                    <label>Name:</label><br />
+                    <input name='name' /><br />
+                    <label>Price:</label><br />
+                    <input name='price' /><br />
+                    <label>Count:</label><br />
+                    <input name='count' /><br />
+                    <input type='submit' class="b1" value='Add' />
+                </div>
+            </form>
+            <form asp-controller="Product" asp-action="ProductDelete" method="post">
+                <div class="formdiv2">
+                    <label>Id:</label><br />
+                    <input name='id' /><br />
+                    <input type="submit" class="b2" value='Delete' />
+                </div>
+            </form>
+            <form asp-controller="Product" asp-action="ProductEdit" method="post">
+                <div class="formdiv3">
+                    <label>Id:</label><br />
+                    <input name='id' /><br />
+                    <label>Name:</label><br />
+                    <input name='name' /><br />
+                    <label>Price:</label><br />
+                    <input name='price' /><br />
+                    <label>Count:</label><br />
+                    <input name='count' /><br />
+                    <input type='submit' class="b3" value='Edit' />
+                </div>
+            </form>
+        </div>
+    }
+
+</body>
+</html>
+
+

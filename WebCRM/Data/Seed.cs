@@ -37,7 +37,22 @@ namespace WebCRM.Data
                     });
                 }
                 context.SaveChanges();
+                if (!context.Products.Any())
+                {
+                    context.Products.AddRange(new List<Product>()
+                    {
+                        new Product()
+                        {
+                            Name = "Apple",
+                            Price = 10.5M,
+                            Count = 100
+                        }
+                    });
+                }
+                context.SaveChanges();
+
             }
+
         }
         public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
         {

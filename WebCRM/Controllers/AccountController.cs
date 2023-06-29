@@ -22,6 +22,10 @@ namespace WebCRM.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return Redirect("/Home/Index"); 
+            }
             var response = new LoginViewModel();
             return View(response);
         }
