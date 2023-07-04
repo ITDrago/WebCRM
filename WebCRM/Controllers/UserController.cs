@@ -28,7 +28,7 @@ namespace WebCRM.Controllers
         }
         [HttpGet("{email}")]
         public async Task<IActionResult> Delete(string email)
-        { 
+        {
             if (email != null)
             {
                 var user = _userRepository.GetByEmail(email);
@@ -37,6 +37,7 @@ namespace WebCRM.Controllers
             }
             return RedirectToAction("Index");
         }
+
     }
 
 }

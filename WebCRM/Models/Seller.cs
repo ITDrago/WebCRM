@@ -14,5 +14,9 @@ namespace WebCRM.Models
         public AppUser? AppUser { get; set; }
 
         public ICollection<Check>? Checks { get; set; }
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

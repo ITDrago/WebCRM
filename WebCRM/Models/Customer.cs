@@ -15,6 +15,11 @@ namespace WebCRM.Models
 
         public ICollection<Check>? Checks { get; set; }
 
-        
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
+ 
 }

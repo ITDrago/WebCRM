@@ -1,0 +1,69 @@
+﻿@using WebCRM.Models;
+@model IEnumerable<Product>
+@{
+}
+<style>
+    .formdiv3{
+        margin-top: 39%;
+        align-content: space-between;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+        
+    }
+
+
+
+</style>
+<section class="flush-with-above">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table table-hover align-items-center table-borderless">
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr class="bg-white">
+                                <th scope="row">
+                                    <div class="media align-items-center">
+
+                                        <div class="media-body">
+                                            <span class="h6 mb-0">@product.Name₽</span>
+                                            <span class="h6 mb-0">@product.Price₽</span>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td>
+                                    <a class="btn btn-outline-success" asp-controller="Sell" asp-action="Buy" asp-route-price="@Convert.ToDecimal(product.Price)">
+                                        Buy
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+
+            </div>
+
+            <!--end of col-->
+        </div>
+        <!--end of row-->
+    </div>
+
+    <!--end of container-->
+</section>
+<form asp-controller="Sell" asp-action="Pay" method="post">
+    <div class="formdiv3">
+        <label>Name:</label><br />
+        <input name='name' /><br />
+        <input type='submit' style="width: 30%;" value='Pay'  />
+        <span class="h6 mb-0" style="
+            position: fixed;
+            bottom: 225px;
+            left: 588px;
+            "
+        >@Convert.ToDecimal((Cart.AllPrice / 100M))₽</span>
+      
+    </div>
+</form>

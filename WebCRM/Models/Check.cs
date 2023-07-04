@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 
 namespace WebCRM.Models
 {
@@ -17,5 +18,7 @@ namespace WebCRM.Models
         public  Seller? Seller { get; set; }
 
         public DateTime Created { get; set; }
+
+        
     }
 }

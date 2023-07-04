@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client.Extensibility;
 using WebCRM.Data;
 using WebCRM.Interfaces;
 using WebCRM.Models;
