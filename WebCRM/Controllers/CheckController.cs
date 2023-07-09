@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Data.Entity;
 using WebCRM.Data;
 using WebCRM.Interfaces;
@@ -18,8 +19,10 @@ namespace WebCRM.Controllers
         public  IActionResult Index()
         {
             IEnumerable<Check> checks = _context.Checks.ToList();
+
             return View(checks);
         }
+        
         [HttpPost]
         public  IActionResult Delete(int id)
         {

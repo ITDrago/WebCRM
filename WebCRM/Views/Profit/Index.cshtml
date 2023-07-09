@@ -1,0 +1,40 @@
+﻿@{
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script>
+		window.onload = function () {
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+				theme: "light2", // "light1", "light2", "dark1", "dark2"
+				animationEnabled: true,
+				title: {
+					text: "Monthly Profit"
+				},
+				axisX: {
+					interval: 1
+				},
+				axisY: {
+					valueFormatString: "$####.00$"
+				},
+				data: [{
+					type: "waterfall",
+					yValueFormatString: "$#,##0,.00K",
+					indexLabelOrientation: "vertical",
+					indexLabelFontColor: "black",
+					risingColor: "#73C2FB",
+					fallingColor: "#FFA571",
+					dataPoints: @Html.Raw(ViewBag.DataPoints)
+			}]
+			});
+			chart.render();
+
+		}
+	</script>
+</head>
+<body>
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	<script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+</body>
+</html>                                                     

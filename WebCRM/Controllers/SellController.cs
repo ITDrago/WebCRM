@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.Json;
 using WebCRM.Data;
 using WebCRM.Interfaces;
 using WebCRM.Models;
@@ -32,18 +34,24 @@ namespace WebCRM.Controllers
         [HttpPost]
         public IActionResult Pay(string name)
         {
-            var customer = new Customer() { Name = name };
-            var check = new Check
+            if (name != null)
             {
-                Customer = customer,
-                Seller = _context.Sellers.FirstOrDefault(),
-                Created = DateTime.Now
-            };
-            _customerRepository.Add(customer);
-            _context.Checks.Add(check);
-            _context.SaveChanges();
-            Cart.AllPrice = 0;
+                var customer = new Customer() { Name = name };
+                var check = new Check
+                {
+                    Customer = customer,
+                    Seller = _context.Sellers.FirstOrDefault(),
+                    Created = DateTime.Now
+                };
+                _customerRepository.Add(customer);
+                _context.Checks.Add(check);
+                _context.SaveChanges();
+                Cart.CartHistory.Add(Cart.AllPrice);
+                Cart.AllPrice = 0;
+                return RedirectToAction("Index");
+            }
             return RedirectToAction("Index");
+
         } 
     }
 }

@@ -28,8 +28,8 @@
                                     <div class="media align-items-center">
 
                                         <div class="media-body">
-                                            <span class="h6 mb-0">@product.Name₽</span>
-                                            <span class="h6 mb-0">@product.Price₽</span>
+                                            <span class="h6 mb-0">@product.Name</span>
+                                            <span class="h6 mb-0">@product.Price$</span>
                                         </div>
                                     </div>
                                 </th>
@@ -60,10 +60,10 @@
         <input type='submit' style="width: 30%;" value='Pay'  />
         <span class="h6 mb-0" style="
             position: fixed;
-            bottom: 225px;
-            left: 588px;
-            "
-        >@Convert.ToDecimal((Cart.AllPrice / 100M))₽</span>
+            margin-top: -29px;
+            margin-left: -4%;
+                "
+        >@Convert.ToDecimal((Cart.AllPrice / 100M))$</span>
       
     </div>
 </form>
