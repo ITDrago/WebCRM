@@ -1,2 +1,2 @@
 # WebCRM
-Project that is being finalized in real time
+CRM model for business accounting with a beautiful design.
